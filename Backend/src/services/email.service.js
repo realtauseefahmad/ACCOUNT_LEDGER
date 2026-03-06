@@ -81,6 +81,56 @@ async function sendRegistrationEmail(userEmail, name) {
     await sendEmail(userEmail, subject, text, html);
 }
 
+async function sendTransactionEmail(userEmail, name, amount, toAccount) {
+    const subject = "Transaction Successful - Account Ledger";
+
+    const text = `Hi ${name},
+                    Your transaction has been successfully processed.
+                    
+                    Transaction Details:
+                    Amount: ₹${amount}
+                    Recipient Account ID: ${toAccount}
+                    
+                    If you did not initiate this transaction, please contact support immediately.
+                    
+                    Thank you for using Account Ledger.
+                    
+                    Best regards,
+                    Account Ledger Team`;
+
+    const html = `<div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">
+                    <h2 style="color:#2c3e50;">Transaction Successful ✅</h2>
+        
+                    <p>Hi <b>${name}</b>,</p>
+        
+                    <p>Your transaction has been processed successfully.</p>
+        
+                    <div style="background:#f4f6f8; padding:15px; border-radius:8px; margin:15px 0;">
+                        <p><b>Amount:</b> ₹${amount}</p>
+                        <p><b>Recipient Account ID:</b> ${toAccount}</p>
+                    </div>
+        
+                    <p>If you did not initiate this transaction, please contact support immediately.</p>
+        
+                    <br>
+        
+                    <p>Best regards,<br>
+                    <b>Account Ledger Team</b></p>
+                    </div>`;
+
+    await sendEmail(userEmail, subject, text, html);
+}
+
+async function sendTransactionFailureEmail(userEmail, name, amount, toAccount) {
+    const subject = 'Transaction Failed';
+    const text = `Hello ${name},\n\nWe regret to inform you that your transaction of $${amount} to account ${toAccount} has failed. Please try again later.\n\nBest regards,\nThe Backend Ledger Team`;
+    const html = `<p>Hello ${name},</p><p>We regret to inform you that your transaction of $${amount} to account ${toAccount} has failed. Please try again later.</p><p>Best regards,<br>The Backend Ledger Team</p>`;
+
+    await sendEmail(userEmail, subject, text, html);
+}
+
 module.exports = {
     sendRegistrationEmail,
+    sendTransactionEmail,
+    sendTransactionFailureEmail
 }
