@@ -131,7 +131,6 @@ This project demonstrates:
 - Account freeze/unfreeze API
 - Admin dashboard
 - Rate limiting
-- Audit logs
 - Frontend dashboard (React)
 
 ---
